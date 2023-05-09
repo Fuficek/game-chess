@@ -223,27 +223,27 @@ namespace gamechess
             if (piece == "q" || piece == "Q")
             {
                 Console.WriteLine("Checking the QUEEN's move legality");
-                if (queenMove(startX, startY, endX, endY) == true) { return true; }
+                if (queenMove(startX, startY, endX, endY) == true && canBeTaken(piece, endX, endY) == true)  { return true; }
             }
             if (piece == "n" || piece == "N")
             {
                 Console.WriteLine("Checking the KNIGHT's move legality");
-                if (knightMove(startX, startY, endX, endY) == true) { return true; }
+                if (knightMove(startX, startY, endX, endY) == true && canBeTaken(piece, endX, endY) == true) { return true; }
             }
             if (piece == "b" || piece == "B")
             {
                 Console.WriteLine("Checking the BISHOP's move legality");
-                if (bishopMove(startX, startY, endX, endY) == true) { return true; }
+                if (bishopMove(startX, startY, endX, endY) == true && canBeTaken(piece, endX, endY) == true) { return true; }
             }
             if (piece == "r" || piece == "R")
             {
                 Console.WriteLine("Checking the ROOK's move legality");
-                if (rookMove(startX, startY, endX, endY) == true) { return true; }
+                if (rookMove(startX, startY, endX, endY) == true && canBeTaken(piece, endX, endY) == true ) { return true; }
             }
             if (piece == "k" || piece == "K")
             {
                 Console.WriteLine("Checking the KING's move legality");
-                return true; 
+                if (canBeTaken(piece, endX, endY) == true) { return true; }
             }
             return false;
         }
@@ -252,7 +252,8 @@ namespace gamechess
             string endPiece = board[endY, endX];
             bool pieceWhite = Char.IsUpper(piece[0]);
             bool endPieceWhite = Char.IsUpper(endPiece[0]);
-
+            Console.WriteLine("You are trying to take: " + endPiece);
+            if (endPiece == ".") { return true; }
             // Check if the pieces are of opposite colors
             if (pieceWhite != endPieceWhite)
             {
@@ -266,6 +267,7 @@ namespace gamechess
                 {
                     return true;
                 }
+                else return false;
             }
 
             // If the pieces are not of opposite colors or if the move is invalid, return false
